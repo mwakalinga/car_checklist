@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>etel system</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+
+    <!-- update the version number as needed -->
+    <script defer src="/__/firebase/7.21.0/firebase-app.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <script defer src="/__/firebase/7.21.0/firebase-auth.js"></script>
+    <script defer src="/__/firebase/7.21.0/firebase-database.js"></script>
+    <script defer src="/__/firebase/7.21.0/firebase-messaging.js"></script>
+    <script defer src="/__/firebase/7.21.0/firebase-storage.js"></script>
+    <script defer src="/__/firebase/7.21.0/firebase-firestore.js"></script>
+    <!-- initialize the SDK after all desired features are loaded -->
+    <script defer src="/__/firebase/init.js"></script>
+</head>
+
+<body>
+    <!-- Start: Navbar - App Toolbar @ LG & MD - Mobile Nav @ SM & -->
+    <nav class="navbar navbar-light navbar-expand-md">
+        <div class="container-fluid"><a class="navbar-brand" href="index.html"><img style="  width: 50px;" src="assets/img/etellogo.png" /></a></a>
+            <button data-toggle="collapse" data-target="#navcol-1" class="navbar-toggler">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse"
+                id="navcol-1">
+                <ul class="nav navbar-nav ml-auto">
+                    <li class="nav-item m-auto"><img class="rounded-circle" src="assets/img/user-photo.jpg" width="25px" height="25px" /></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html"><i class="fa fa-home"></i> Home<br /></a></li>
+                    <li class="nav-item"><a class="nav-link" href="view.html"><i class="fa fa-sticky-note-o"></i> Check Report</a></li>
+                    <li id="logintab" class="nav-item"><a id="signinbtn" class="nav-link" href="login.html"><i class="fa fa-power-off"></i> Login</a></li>
+                    <li id="logouttab" class="nav-item"><a id="signoutbtn" onclick="signout()"  class="nav-link" href="#"><i class="fa fa-power-off"></i> Logout</a></li>
+                    <li id="createtab" class="nav-item"><a id="createbtn" onclick="callcreate()"  class="nav-link" href="#"><i class="fa fa-user"></i> Create new user</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- End: Navbar - App Toolbar @ LG & MD - Mobile Nav @ SM & -->
+
+    <div class="loader">
+        <div class="ring"></div>
+    </div>
+    
+    <!-- Start: cardssss -->
+    <div id="mainofmain" class="card border rounded shadow-sm" style="display: none; background-color: rgba(255,255,255,0.89);margin: 40px;">
+        <div class="card-body" style="padding: 20px;">
+            <div id="list" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5" style="margin-left: -10px;">
+               
+            </div>
+        </div>
+    </div>
+
+    <section id="viewinfos">
+        <div class="card border rounded shadow-sm verify_card" style="  margin-top: 20px;">
+            <div class="card-body" style="  padding: 10px;">
+            <form>
+                <p class="text-center" style="  background-color: rgba(0,0,0,0.08);">CAR CHECKING</p>
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="col">
+                            <p style="  font-size: 14px;margin-bottom: 0px;">Vehicle make/type<br /></p>
+                            <p id="cars">car name</p>
+                        </div>
+                        <div class="col">
+                            <p style=" font-size: 14px;margin-bottom: 0px;">Operator<br /></p>
+                            <p id="operator">name</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="col">
+                            <p style="  font-size: 14px; margin-bottom: 0px;">Odometer reading<br /></p>
+                            <p id="meter_reading">meter</p>
+                        </div>
+                        <div class="col">
+
+                            <div class="form-row row-cols-2">
+                                <div class="col">
+                                    <p style="  font-size: 14px; margin-bottom: 0px;">Date<br /></p>
+                                    <p id="date_now"></p>
+                                </div>
+                                <div class="col">
+                                    <p style="  font-size: 14px; margin-bottom: 0px;">Time<br /></p>
+                                    <p id="time_now"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            </div>
+        
+            <div class="card-body" style="  padding: 10px;">
+            <form>
+                <p class="text-center" style="  background-color: rgba(0,0,0,0.08);">EXTERNAL VEHICLE CONDITION</p>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>item</th>
+                                <th>comment</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Condition of vehicle bodywork, windscreen, windows, lights.</td>
+                                <td>
+                                    <p id="data1"></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Condition of windscreen wiper blades.</td>
+                                <td>
+                                    <p id="data2"></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Cleaness of windscreen, windows, mirrors, lights, number plate</td>
+                                <td>
+                                    <p id="data3"></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Security of load, trailer, roof rack</td>
+                                <td>
+                                    <p id="data4"></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Condition of tyres, tyre pressure, tyre wear</td>
+                                <td>
+                                    <p id="data5"></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Availability of spare wheel &amp; jack</td>
+                                <td>
+                                    <p id="data6"></p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </form>
+            </div>
+    
+            <div class="card-body" style="  padding: 10px;">
+            <form>
+                <p class="text-center" style="  background-color: rgba(0,0,0,0.08);">FLUIDS</p>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>item</th>
+                                <th>comment</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Engine oil level</td>
+                                <td>
+                                    <p id="data7"></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Coolant level</td>
+                                <td>
+                                    <p id="data8"></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Windscreen wash level</td>
+                                <td>
+                                    <p id="data9"></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Brake/clutch fluid</td>
+                                <td>
+                                    <p id="data10"></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Power streering fluid</td>
+                                <td>
+                                    <p id="data11"></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Condition of battery</td>
+                                <td>
+                                    <p id="data12"></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Oil or waste leaks</td>
+                                <td>
+                                    <p id="data13"></p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </form>
+            </div>
+    
+            <div class="card-body" style="  padding: 10px;">
+            <form>
+                <p class="text-center" style="  background-color: rgba(0,0,0,0.08);">VEHICLE INTERIOR AND EQUIPMENT</p>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>item</th>
+                                <th>comment</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Condition &amp;function of seat belts</td>
+                                <td>
+                                    <p id="data14"></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Head restraint adjustment</td>
+                                <td>
+                                    <p id="data15"></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Mirror adjustment</td>
+                                <td>
+                                    <p id="data16"></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Tax disk</td>
+                                <td>
+                                    <p id="data17"></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>First aid kit</td>
+                                <td>
+                                    <p id="data18"></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Fire extinguisher</td>
+                                <td>
+                                    <p id="data19"></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Torch</td>
+                                <td>
+                                    <p id="data20"></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Warning triangle</td>
+                                <td>
+                                    <p id="data21"></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Vehicle handbook</td>
+                                <td>
+                                    <p id="data22"></p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </form>
+            </div>
+    
+            <div class="card-body" style="  padding: 10px;">
+            <form>
+                <p class="text-center" style="  background-color: rgba(0,0,0,0.08);">FUNCTION CHECKS BEFORE STARTING THE JOURNEY</p>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>item</th>
+                                <th>comment</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Warning light</td>
+                                <td>
+                                    <p id="data23"></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>All light</td>
+                                <td>
+                                    <p id="data24"></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Horn</td>
+                                <td>
+                                    <p id="data25"></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Washers &amp; wipers</td>
+                                <td>
+                                    <p id="data26"></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Brake</td>
+                                <td>
+                                    <p id="data27"></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Fuel</td>
+                                <td>
+                                    <p id="data28"></p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div3 class="form-group"><h6 style="text-align: center;">Comment of operator from check up</h6></div3>
+                <div3 class="form-group text-center"><p style="text-align: center;" id="comments">here comment</p></div3>
+            </form>
+            </div>
+        </div>
+    </section>
+    <div id="print" class="text-center"><button id="printbtn" class="btn btn-primary" type="button">save file</button></div>
+    <!-- End: cardssss -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/pdfFromHTML.js"></script>
+    <script defer src="assets/js/firebase.js"></script>
+    <script defer src="assets/js/signout.js"></script>
+    <script defer src="assets/js/view.js"></script>
+    <script>
+    $('#printbtn').click(function(){
+        $('#viewinfos').printThis({
+            debug: false,               // show the iframe for debugging
+            importCSS: true,            // import parent page css
+            importStyle: false,         // import style tags
+            printContainer: true,       // print outer container/$.selector
+            loadCSS: "assets/css/styles.min.css",  // path to additional css file - use an array [] for multiple
+            pageTitle: "Etel car checking report", // add title to print page
+            removeInline: false,        // remove inline styles from print elements
+            removeInlineSelector: "*",  // custom selectors to filter inline styles. removeInline must be true
+            printDelay: 333,            // variable print delay
+            header: "<div style='margin-right: 10px; margin-left: 10px;'><h3 class='text-center'>Etel car checking report</h3><img src='assets/img/etellogo.png' style='width: 80px;' /></div>", // prefix to html
+            footer: '<div><p class="text-center" style="  font-size: 10px;margin-bottom: 0px;">Eminence Technologies &amp; Engineering Limited</p><p class="text-center" style="  font-size: 10px;margin-bottom: 0px;">Plot No. 360, Magengeni Street, Tabata, Ilala, Dar es Salaam.</p><p class="text-center" style="  font-size: 10px;margin-bottom: 0px;">cell: +255 757 607 291, +255 655 710 649</p><p class="text-center" style="  font-size: 10px;margin-bottom: 0px;">info@eminence.co.tz </p><p class="text-center" style="  font-size: 10px;margin-bottom: 0px;">www.eminence.co.tz<br /></p></div>',   // postfix to html
+            base: false,                // preserve the BASE tag or accept a string for the URL
+            formValues: true,           // preserve input/form values
+            canvas: false,              // copy canvas content
+            doctypeString: '<!DOCTYPE html>', // enter a different doctype for older markup
+            removeScripts: false,       // remove script tags from print content
+            copyTagClasses: false,      // copy classes from the html & body tag
+            beforePrintEvent: null,     // callback function for printEvent in iframe
+            beforePrint: null,          // function called before iframe is filled
+            afterPrint: null            // function called before iframe is removed
+        });
+    })
+    </script>
+    
+</body>
+
+</html>

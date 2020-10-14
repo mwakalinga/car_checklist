@@ -1,0 +1,16 @@
+{
+    "short_name":"car checking",
+    "name":"etel car checking",
+    "icons":[{
+        "src":"/assets/img/logo192.png",
+        "type":"image/png",
+        "sizes":"192x192"
+        },{
+            "src":"/assets/img/logo512.png",
+            "type":"image/png",
+            "sizes":"512x512"
+            }],
+            "start_url":"/index.html",
+            "theme_color":"rgb(233,240,251)",
+            "display":"fullscreen"
+}

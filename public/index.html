@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>etel check-up</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+
+    <!-- update the version number as needed -->
+    <script defer src="/__/firebase/7.21.0/firebase-app.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <script defer src="/__/firebase/7.21.0/firebase-auth.js"></script>
+    <script defer src="/__/firebase/7.21.0/firebase-database.js"></script>
+    <script defer src="/__/firebase/7.21.0/firebase-messaging.js"></script>
+    <script defer src="/__/firebase/7.21.0/firebase-storage.js"></script>
+    <script defer src="/__/firebase/7.21.0/firebase-firestore.js"></script>
+    <!-- initialize the SDK after all desired features are loaded -->
+    <script defer src="/__/firebase/init.js"></script>
+</head>
+
+<body>
+    <div class="se-pre-con"></div>
+    <!-- Start: Navbar - App Toolbar @ LG & MD - Mobile Nav @ SM & -->
+    <nav class="navbar navbar-light navbar-expand-md">
+        <div class="container-fluid"><a class="navbar-brand" href="index.html"><img style="  width: 50px;" src="assets/img/etellogo.png" /></a></a>
+            <button data-toggle="collapse" data-target="#navcol-1" class="navbar-toggler">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse"
+                id="navcol-1">
+                <ul class="nav navbar-nav ml-auto">
+                    <li class="nav-item m-auto"><img class="rounded-circle" src="assets/img/user-photo.jpg" width="25px" height="25px" /></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html"><i class="fa fa-home"></i> Home<br /></a></li>
+                    <li class="nav-item"><a class="nav-link" href="view.html"><i class="fa fa-sticky-note-o"></i> Check Report</a></li>
+                    <li id="logintab" class="nav-item"><a id="signinbtn" class="nav-link" href="login.html"><i class="fa fa-power-off"></i> Login</a></li>
+                    <li id="logouttab" class="nav-item"><a id="signoutbtn" onclick="signout()"  class="nav-link" href="#"><i class="fa fa-power-off"></i> Logout</a></li>
+                    <li id="createtab" class="nav-item"><a id="createbtn" onclick="callcreate()"  class="nav-link" href="#"><i class="fa fa-user"></i> Create new user</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- End: Navbar - App Toolbar @ LG & MD - Mobile Nav @ SM & -->
+
+    <div class="loader">
+        <div class="ring"></div>
+    </div>
+
+    <!-- Start: cardsss2 -->
+    <div id="myhome" class="card border rounded shadow-sm verify_card" style="  margin-top: 20px;">
+        <div class="card-body" style="  padding: 10px;">
+        <form>
+            <p class="text-center">CAR CHECKING</p>
+            <div class="form-group">
+                <div class="form-row">
+                    <div class="col">
+                        <p style="font-size: 14px;margin-bottom: 0px;">Vehicle make/type<br></p>
+                        <div class="dropdown">
+                            <input class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false" value="select" id="car_name" type="button"></input>
+                            <div role="menu" class="dropdown-menu">
+                                <a role="presentation" class="dropdown-item" id="IST" onclick="pickname('IST')" href="#">IST</a>
+                                <a role="presentation" class="dropdown-item" id="RAV4" onclick="pickname('RAV4')" href="#">RAV4</a>
+                                <a role="presentation" class="dropdown-item" id="NOAH" onclick="pickname('NOAH')" href="#">NOAH</a>
+                                <a role="presentation" class="dropdown-item" id="CARINA" onclick="pickname('CARINA')" href="#">CARINA</a>
+                                <a role="presentation" class="dropdown-item" id="NISSAN" onclick="pickname('NISSAN')" href="#">NISSAN</a>
+                                <a role="presentation" class="dropdown-item" id="STARLET" onclick="pickname('STARLET')" href="#">STARLET</a>
+                            </div>
+                        </div>
+                      </div>
+                    <div class="col">
+                        <p style="font-size: 14px;margin-bottom: 0px;">Operator<br></p>
+                        <p id="operator"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-row">
+                    <div class="col">
+                        <p style="font-size: 14px;margin-bottom: 0px;">Odometer reading<br></p>
+                        <input class="form-control" type="number" id="meter_reading"></div>
+                    <div class="col">
+                        <p style="font-size: 14px;margin-bottom: 0px;">Date<br></p>
+                        <p id="date_now"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group"><button class="btn btn-primary btn-sm border rounded float-right" type="button" style="font-weight: normal;font-family: 'Open Sans', sans-serif;font-size: 15px;" onclick="onenext()">Next</button></div>
+        </form>
+        </div>
+    
+        <div class="card-body" id="one_page" style="  padding: 10px;">
+        <form>
+            <p class="text-center">EXTERNAL VEHICLE CONDITION</p>
+            <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>item</th>
+                                <th>Good</th>
+                                <th>Bad</th>
+                                <th>N/A</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Condition of vehicle bodywork, windscreen, windows, lights.</td>
+                                <td><input type="checkbox" onclick="boxcheck('data1good')" id="data1good"g /></td>
+                                <td><input type="checkbox" onclick="boxcheck('data1bad')" id="data1bad" /></td>
+                                <td><input type="checkbox" onclick="boxcheck('data1na')" id="data1na" /></td>
+                            </tr>
+                            <tr>
+                                <td>Condition of windscreen wiper blades.</td>
+                                <td><input type="checkbox" onclick="boxcheck('data2good')" id="data2good" /></td>
+                                <td><input type="checkbox" onclick="boxcheck('data2bad')" id="data2bad" /></td>
+                                <td><input type="checkbox" onclick="boxcheck('data2na')" id="data2na" /></td>
+                            </tr>
+                            <tr>
+                                <td>Cleaness of windscreen, windows, mirrors, lights, number plate</td>
+                                <td><input type="checkbox" onclick="boxcheck('data3good')" id="data3good" /></td>
+                                <td><input type="checkbox" onclick="boxcheck('data3bad')" id="data3bad" /></td>
+                                <td><input type="checkbox" onclick="boxcheck('data3na')" id="data3na" /></td>
+                            </tr>
+                            <tr>
+                                <td>Security of load, trailer, roof rack</td>
+                                <td><input type="checkbox" onclick="boxcheck('data4good')" id="data4good" /></td>
+                                <td><input type="checkbox" onclick="boxcheck('data4bad')" id="data4bad" /></td>
+                                <td><input type="checkbox" onclick="boxcheck('data4na')" id="data4na" /></td>
+                            </tr>
+                            <tr>
+                                <td>Condition of tyres, tyre pressure, tyre wear</td>
+                                <td><input type="checkbox" onclick="boxcheck('data5good')" id="data5good" /></td>
+                                <td><input type="checkbox" onclick="boxcheck('data5bad')" id="data5bad" /></td>
+                                <td><input type="checkbox" onclick="boxcheck('data5na')" id="data5na" /></td>
+                            </tr>
+                            <tr>
+                                <td>Availability of spare wheel &amp; jack</td>
+                                <td><input type="checkbox" onclick="boxcheck('data6good')" id="data6good" /></td>
+                                <td><input type="checkbox" onclick="boxcheck('data6bad')" id="data6bad" /></td>
+                                <td><input type="checkbox" onclick="boxcheck('data6na')" id="data6na" /></td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
+            <div class="form-group"><button class="btn btn-primary btn-sm border rounded float-right" type="button" style="font-weight: normal;font-family: 'Open Sans', sans-serif;font-size: 15px;" onclick="twonext()">FINISH</button></div>
+        </form>
+        </div>
+
+        <div class="card-body" id="two_page" style="  padding: 10px;">
+        <form>
+            <p class="text-center">FLUIDS</p>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>item</th>
+                            <th>Good</th>
+                            <th>Bad</th>
+                            <th>N/A</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Engine oil level</td>
+                            <td><input type="checkbox" onclick="boxcheck('data7good')" id="data7good" /></td>
+                            <td><input type="checkbox" onclick="boxcheck('data7bad')" id="data7bad" /></td>
+                            <td><input type="checkbox" onclick="boxcheck('data7na')" id="data7na" /></td>
+                        </tr>
+                        <tr>
+                            <td>Coolant level</td>
+                            <td><input type="checkbox" onclick="boxcheck('data8good')" id="data8good" /></td>
+                            <td><input type="checkbox" onclick="boxcheck('data8bad')" id="data8bad" /></td>
+                            <td><input type="checkbox" onclick="boxcheck('data8na')" id="data8na" /></td>
+                        </tr>
+                        <tr>
+                            <td>Windscreen wash level</td>
+                            <td><input type="checkbox" onclick="boxcheck('data9good')" id="data9good" /></td>
+                            <td><input type="checkbox" onclick="boxcheck('data9bad')" id="data9bad" /></td>
+                            <td><input type="checkbox" onclick="boxcheck('data9na')" id="data9na" /></td>
+                        </tr>
+                        <tr>
+                            <td>Brake/clutch fluid</td>
+                            <td><input type="checkbox" onclick="boxcheck('data10good')" id="data10good" /></td>
+                            <td><input type="checkbox" onclick="boxcheck('data10bad')" id="data10bad" /></td>
+                            <td><input type="checkbox" onclick="boxcheck('data10na')" id="data10na" /></td>
+                        </tr>
+                        <tr>
+                            <td>Power streering fluid</td>
+                            <td><input type="checkbox" onclick="boxcheck('data11good')" id="data11good" /></td>
+                            <td><input type="checkbox" onclick="boxcheck('data11bad')" id="data11bad" /></td>
+                            <td><input type="checkbox" onclick="boxcheck('data11na')" id="data11na" /></td>
+                        </tr>
+                        <tr>
+                            <td>Condition of battery</td>
+                            <td><input type="checkbox" onclick="boxcheck('data12good')" id="data12good" /></td>
+                            <td><input type="checkbox" onclick="boxcheck('data12bad')" id="data12bad" /></td>
+                            <td><input type="checkbox" onclick="boxcheck('data12na')" id="data12na" /></td>
+                        </tr>
+                        <tr>
+                            <td>Oil or waste leaks</td>
+                            <td><input type="checkbox" onclick="boxcheck('data13good')" id="data13good" /></td>
+                            <td><input type="checkbox" onclick="boxcheck('data13bad')" id="data13bad" /></td>
+                            <td><input type="checkbox" onclick="boxcheck('data13na')" id="data13na" /></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="form-group"><button class="btn btn-primary btn-sm border rounded float-right" type="button" style="font-weight: normal;font-family: 'Open Sans', sans-serif;font-size: 15px;" onclick="threenext()">FINISH</button></div>
+        </form>
+        </div>
+
+        <div class="card-body" id="three_page" style="  padding: 10px;">
+        <form>
+            <p class="text-center">VEHICLE INTERIOR AND EQUIPMENT</p>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>item</th>
+                            <th>Good</th>
+                            <th>Bad</th>
+                            <th>N/A</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Condition &amp;function of seat belts</td>
+                            <td><input type="checkbox" onclick="boxcheck('data14good')" id="data14good" /></td>
+                            <td><input type="checkbox" onclick="boxcheck('data14bad')" id="data14bad" /></td>
+                            <td><input type="checkbox" onclick="boxcheck('data14na')" id="data14na" /></td>
+                        </tr>
+                        <tr>
+                            <td>Head restraint adjustment</td>
+                            <td><input type="checkbox" onclick="boxcheck('data15good')" id="data15good" /></td>
+                            <td><input type="checkbox" onclick="boxcheck('data15bad')" id="data15bad" /></td>
+                            <td><input type="checkbox" onclick="boxcheck('data15na')" id="data15na" /></td>
+                        </tr>
+                        <tr>
+                            <td>Mirror adjustment</td>
+                            <td><input type="checkbox" onclick="boxcheck('data16good')" id="data16good" /></td>
+                            <td><input type="checkbox" onclick="boxcheck('data16bad')" id="data16bad" /></td>
+                            <td><input type="checkbox" onclick="boxcheck('data16na')" id="data16na" /></td>
+                        </tr>
+                        <tr>
+                            <td>Tax disk</td>
+                            <td><input type="checkbox" onclick="boxcheck('data17good')" id="data17good" /></td>
+                            <td><input type="checkbox" onclick="boxcheck('data17bad')" id="data17bad" /></td>
+                            <td><input type="checkbox" onclick="boxcheck('data17na')" id="data17na" /></td>
+                        </tr>
+                        <tr>
+                            <td>First aid kit</td>
+                            <td><input type="checkbox" onclick="boxcheck('data18good')" id="data18good" /></td>
+                            <td><input type="checkbox" onclick="boxcheck('data18bad')" id="data18bad" /></td>
+                            <td><input type="checkbox" onclick="boxcheck('data18na')" id="data18na" /></td>
+                        </tr>
+                        <tr>
+                            <td>Fire extinguisher</td>
+                            <td><input type="checkbox" onclick="boxcheck('data19good')" id="data19good" /></td>
+                            <td><input type="checkbox" onclick="boxcheck('data19bad')" id="data19bad" /></td>
+                            <td><input type="checkbox" onclick="boxcheck('data19na')" id="data19na" /></td>
+                        </tr>
+                        <tr>
+                            <td>Torch</td>
+                            <td><input type="checkbox" onclick="boxcheck('data20good')" id="data20good" /></td>
+                            <td><input type="checkbox" onclick="boxcheck('data20bad')" id="data20bad" /></td>
+                            <td><input type="checkbox" onclick="boxcheck('data20na')" id="data20na" /></td>
+                        </tr>
+                        <tr>
+                            <td>Warning triangle</td>
+                            <td><input type="checkbox" onclick="boxcheck('data21good')" id="data21good" /></td>
+                            <td><input type="checkbox" onclick="boxcheck('data21bad')" id="data21bad" /></td>
+                            <td><input type="checkbox" onclick="boxcheck('data21na')" id="data21na" /></td>
+                        </tr>
+                        <tr>
+                            <td>Vehicle handbook</td>
+                            <td><input type="checkbox" onclick="boxcheck('data22good')" id="data22good" /></td>
+                            <td><input type="checkbox" onclick="boxcheck('data22bad')" id="data22bad" /></td>
+                            <td><input type="checkbox" onclick="boxcheck('data22na')" id="data22na" /></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="form-group"><button class="btn btn-primary btn-sm border rounded float-right" type="button" style="font-weight: normal;font-family: 'Open Sans', sans-serif;font-size: 15px;" onclick="fournext()">FINISH</button></div>
+        </form>
+        </div>
+
+        <div class="card-body" id="four_page" style="  padding: 10px;">
+        <form>
+            <p class="text-center">FUNCTION CHECKS BEFORE STARTING THE JOURNEY</p>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>item</th>
+                            <th>Good</th>
+                            <th>Bad</th>
+                            <th>N/A</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Warning light</td>
+                            <td><input type="checkbox" onclick="boxcheck('data23good')" id="data23good" /></td>
+                            <td><input type="checkbox" onclick="boxcheck('data23bad')" id="data23bad" /></td>
+                            <td><input type="checkbox" onclick="boxcheck('data23na')" id="data23na" /></td>
+                        </tr>
+                        <tr>
+                            <td>All light</td>
+                            <td><input type="checkbox" onclick="boxcheck('data24good')" id="data24good" /></td>
+                            <td><input type="checkbox" onclick="boxcheck('data24bad')" id="data24bad" /></td>
+                            <td><input type="checkbox" onclick="boxcheck('data24na')" id="data24na" /></td>
+                        </tr>
+                        <tr>
+                            <td>Horny</td>
+                            <td><input type="checkbox" onclick="boxcheck('data25good')" id="data25good" /></td>
+                            <td><input type="checkbox" onclick="boxcheck('data25bad')" id="data25bad" /></td>
+                            <td><input type="checkbox" onclick="boxcheck('data25na')" id="data25na" /></td>
+                        </tr>
+                        <tr>
+                            <td>Washers &amp; wipers</td>
+                            <td><input type="checkbox" onclick="boxcheck('data26good')" id="data26good" /></td>
+                            <td><input type="checkbox" onclick="boxcheck('data26bad')" id="data26bad" /></td>
+                            <td><input type="checkbox" onclick="boxcheck('data26na')" id="data26na" /></td>
+                        </tr>
+                        <tr>
+                            <td>Brake</td>
+                            <td><input type="checkbox" onclick="boxcheck('data27good')" id="data27good" /></td>
+                            <td><input type="checkbox" onclick="boxcheck('data27bad')" id="data27bad" /></td>
+                            <td><input type="checkbox" onclick="boxcheck('data27na')" id="data27na" /></td>
+                        </tr>
+                        <tr>
+                            <td>Fuel</td>
+                            <td><input type="checkbox" onclick="boxcheck('data28good')" id="data28good" /></td>
+                            <td><input type="checkbox" onclick="boxcheck('data28bad')" id="data28bad" /></td>
+                            <td><input type="checkbox" onclick="boxcheck('data28na')" id="data28na" /></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div3 class="form-group"><textarea id="datacomment" class="border rounded form-control" placeholder="comments"></textarea></div3>
+            <div class="form-group"><button class="btn btn-primary btn-sm border rounded float-right" type="button" style="font-weight: normal;font-family: 'Open Sans', sans-serif;font-size: 15px;" onclick="sendData()">SAVE</button></div>
+        </form>
+        </div>
+    </div>
+    <!-- End: cardsss2 -->
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script defer src="assets/js/script.js"></script>
+    <script defer src="assets/js/signout.js"></script>
+    <script defer src="assets/js/firebase.js"></script>
+    <script defer src="assets/js/forcheckbox.js"></script>
+</body>
+
+</html>
