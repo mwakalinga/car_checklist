@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>etel check-up</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
     <link rel="manifest" href="manifest.json">
@@ -34,23 +34,25 @@
   </head>
   <body>
    <!-- Start: Navbar - App Toolbar @ LG & MD - Mobile Nav @ SM & -->
-    <nav class="navbar navbar-light navbar-expand-md">
-        <div class="container-fluid"><a class="navbar-brand" href="index.html"><img style="  width: 50px;" src="assets/img/etellogo.png" /></a></a>
-            <button data-toggle="collapse" data-target="#navcol-1" class="navbar-toggler">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse"
+   <nav class="navbar navbar-light navbar-expand-md">
+       <div class="container-fluid"><a class="navbar-brand" href="index.html"><img style="  width: 50px;" src="assets/img/etellogo.png" /></a></a>
+           <button data-toggle="collapse" data-target="#navcol-1" class="navbar-toggler">
+               <span class="sr-only">Toggle navigation</span>
+               <span class="navbar-toggler-icon"></span>
+           </button>
+           <div class="collapse navbar-collapse"
                 id="navcol-1">
-                <ul class="nav navbar-nav ml-auto">
-                    <li class="nav-item m-auto"><img class="rounded-circle" src="assets/img/user-photo.jpg" width="25px" height="25px"  alt=""/></li>
-                    <li class="nav-item"><a class="nav-link" href="index.html"><i class="fa fa-home"></i> Home<br /></a></li>
-                    <li class="nav-item"><a class="nav-link" href="view.html"><i class="fa fa-sticky-note-o"></i> Check Report</a></li>
-                    <li id="logintab" class="nav-item"><a id="signinbtn" class="nav-link" href="login.html"><i class="fa fa-power-off"></i> Login</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+               <ul class="nav navbar-nav ml-auto">
+                   <li class="nav-item m-auto"><img class="rounded-circle" src="assets/img/user-photo.jpg" width="25px" height="25px" /></li>
+                   <li class="nav-item"><a class="nav-link" href="index.html"><i class="fa fa-home"></i> Home<br /></a></li>
+                   <li id="viewreport" class="nav-item"><a class="nav-link" onclick="gotoView()" href=""><i class="fa fa-sticky-note-o"></i> Check Report</a></li>
+                   <li id="logintab" class="nav-item"><a id="signinbtn" class="nav-link" href="login.html"><i class="fa fa-power-off"></i> Login</a></li>
+                   <li id="logouttab" class="nav-item"><a id="signoutbtn" onclick="signout()"  class="nav-link" href="#"><i class="fa fa-power-off"></i> Logout</a></li>
+                   <li id="createtab" class="nav-item"><a id="createbtn" onclick="callcreate()"  class="nav-link" href="#"><i class="fa fa-user"></i> Create new user</a></li>
+               </ul>
+           </div>
+       </div>
+   </nav>
     <!-- End: Navbar - App Toolbar @ LG & MD - Mobile Nav @ SM & -->
     <div id="message">
       <h2>404</h2>

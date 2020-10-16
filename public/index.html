@@ -37,7 +37,7 @@
                 <ul class="nav navbar-nav ml-auto">
                     <li class="nav-item m-auto"><img class="rounded-circle" src="assets/img/user-photo.jpg" width="25px" height="25px" /></li>
                     <li class="nav-item"><a class="nav-link" href="index.html"><i class="fa fa-home"></i> Home<br /></a></li>
-                    <li class="nav-item"><a class="nav-link" href="view.html"><i class="fa fa-sticky-note-o"></i> Check Report</a></li>
+                    <li id="viewreport" class="nav-item"><a class="nav-link" onclick="gotoView()" href=""><i class="fa fa-sticky-note-o"></i> Check Report</a></li>
                     <li id="logintab" class="nav-item"><a id="signinbtn" class="nav-link" href="login.html"><i class="fa fa-power-off"></i> Login</a></li>
                     <li id="logouttab" class="nav-item"><a id="signoutbtn" onclick="signout()"  class="nav-link" href="#"><i class="fa fa-power-off"></i> Logout</a></li>
                     <li id="createtab" class="nav-item"><a id="createbtn" onclick="callcreate()"  class="nav-link" href="#"><i class="fa fa-user"></i> Create new user</a></li>
@@ -354,6 +354,7 @@
     <script defer src="assets/js/signout.js"></script>
     <script defer src="assets/js/firebase.js"></script>
     <script defer src="assets/js/forcheckbox.js"></script>
+    <script defer src="assets/js/index.js"></script>
 </body>
 
 </html>

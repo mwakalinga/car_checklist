@@ -2,9 +2,9 @@
  /* jshint expr: true */
 
 // const firebase.firestore() = firebase.firestore();
- const currentdate = new Date();
+ let currentdate = new Date();
  let date = currentdate.getDate() + "-" + (currentdate.getMonth() + 1) + "-" + currentdate.getFullYear();
- const time = currentdate.getHours() + ":" + currentdate.getMinutes() + ":" + currentdate.getSeconds();
+ let time = currentdate.getHours() + ":" + currentdate.getMinutes() + ":" + currentdate.getSeconds();
  document.getElementById('date_now').innerText = date;
 document.getElementById('date_now').value = date;
 

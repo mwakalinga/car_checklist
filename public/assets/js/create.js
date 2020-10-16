@@ -5,17 +5,14 @@ const db = firebase.auth();
 const functions = firebase.functions();
 const createNewUser = functions.httpsCallable('createUser');
 
-document.getElementById('verify').style.display = 'block';
-document.getElementById('message').style.display = 'none';
-
 function empty() {
     document.getElementById("errortxt").innerText = "";
 }
  let number = 0;
 
 function validate() {
-    const pass1 = document.getElementById("password1").value;
-    const pass2 = document.getElementById("password2").value;
+    let pass1 = document.getElementById("password1").value;
+    let pass2 = document.getElementById("password2").value;
     console.log(pass1);
     if (pass1.value !== pass2.value) {
         document.getElementById("errortxt").innerText = "please check the password, are not equal!";
@@ -56,16 +53,6 @@ function sendData() {
             document.getElementById("errortxt").innerText = error;
         });
     }
-}
-
-function verify(){
-    db.currentUser.sendEmailVerification().then(function () {
-        alert("ready");
-        document.getElementById('verify').style.display = 'none';
-        document.getElementById('message').style.display = 'block';
-    }).catch(function (error) {
-        // An error happened.
-    });
 }
 
 function pickclaim(claim){

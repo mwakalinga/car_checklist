@@ -5,12 +5,12 @@
  document.getElementById('viewinfos').style.display="none";
  document.getElementById('print').style.display="none";
  let count = 0;
- const dates = [];
+ let dates = [];
 
  function checkList(){
      db.collection('data').orderBy("date", "desc").get().then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
-            const datedate = doc.id;
+            let datedate = doc.id;
             dates.push(datedate);
 
             const RAV4 = "RAV4";
@@ -21,17 +21,17 @@
             const NOAH = "NOAH";
             const all = "all";
 
-            const RAV42 = doc.data().RAV4;
-            const CARINA2 = doc.data().CARINA;
-            const NISSAN2 = doc.data().NISSAN;
-            const STARLET2 = doc.data().STARLET;
-            const IST2 = doc.data().IST;
-            const NOAH2 = doc.data().NOAH;
+            let RAV42 = doc.data().RAV4;
+            let CARINA2 = doc.data().CARINA;
+            let NISSAN2 = doc.data().NISSAN;
+            let STARLET2 = doc.data().STARLET;
+            let IST2 = doc.data().IST;
+            let NOAH2 = doc.data().NOAH;
 
-            const datedate2 = datedate + "/";
+            let datedate2 = datedate + "/";
             datedate2.toString();
 
-            const content = "<div id ='" + count + all + "' class=" + "col" + " style=" + "margin-top: 5px;margin-bottom: 5px;" + "><div><a class=" + "btn btn-primary" + " data-toggle=" + "collapse" + " aria-expanded=" + "false" + " aria-controls=" + "collapse-" + datedate + " href=" + "#collapse-" + datedate + " role=" + "button" + ">" + datedate + "</a><div class=" + "collapse" + " id=" + "collapse-" + datedate + "" + "><div id ='" + count + IST + "'><hr/><a  onClick='idSome(\"" + datedate2 + IST + "\")' href=" + "#" + ">IST</a></div> <div id ='" + count + RAV4 + "'><hr/><a onClick='idSome(\"" + datedate2 + RAV4 + "\")' href=" + "#" + ">RAV4</a></div> <div id ='" + count + CARINA + "'><hr /><a onClick='idSome(\"" + datedate2 + CARINA + "\")' href=" + "#" + ">CARINA</a></div> <div id ='" + count + NISSAN + "'><hr /><a onClick='idSome(\"" + datedate2 + NISSAN + "\")' href=" + "#" + ">NISSAN</a></div> <div id ='" + count + NOAH + "'><hr /><a onClick='idSome(\"" + datedate2 + NOAH + "\")' href=" + "#" + ">NOAH</a></div> <div id ='" + count + STARLET + "'><hr /><a onClick='idSome(\"" + datedate2 + STARLET + "\")' href=" + "#" + ">STARLET</a></div> </div></div></div>";
+            let content = "<div id ='" + count + all + "' class=" + "col" + " style=" + "margin-top: 5px;margin-bottom: 5px;" + "><div><a class=" + "btn btn-primary" + " data-toggle=" + "collapse" + " aria-expanded=" + "false" + " aria-controls=" + "collapse-" + datedate + " href=" + "#collapse-" + datedate + " role=" + "button" + ">" + datedate + "</a><div class=" + "collapse" + " id=" + "collapse-" + datedate + "" + "><div id ='" + count + IST + "'><hr/><a  onClick='idSome(\"" + datedate2 + IST + "\")' href=" + "#" + ">IST</a></div> <div id ='" + count + RAV4 + "'><hr/><a onClick='idSome(\"" + datedate2 + RAV4 + "\")' href=" + "#" + ">RAV4</a></div> <div id ='" + count + CARINA + "'><hr /><a onClick='idSome(\"" + datedate2 + CARINA + "\")' href=" + "#" + ">CARINA</a></div> <div id ='" + count + NISSAN + "'><hr /><a onClick='idSome(\"" + datedate2 + NISSAN + "\")' href=" + "#" + ">NISSAN</a></div> <div id ='" + count + NOAH + "'><hr /><a onClick='idSome(\"" + datedate2 + NOAH + "\")' href=" + "#" + ">NOAH</a></div> <div id ='" + count + STARLET + "'><hr /><a onClick='idSome(\"" + datedate2 + STARLET + "\")' href=" + "#" + ">STARLET</a></div> </div></div></div>";
             $('#list').append(content);
             //console.log(count+RAV4);
 
@@ -75,7 +75,7 @@ function idSome(ids){
     document.getElementById('print').style.display="block";
 
     db.doc(ids).onSnapshot((doc) => {
-    const data = doc.data();
+        let data = doc.data();
 
     document.getElementById("cars").innerHTML = data.carname;
     document.getElementById("operator").innerHTML = data.user;

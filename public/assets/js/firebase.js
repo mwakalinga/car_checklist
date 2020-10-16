@@ -2,6 +2,8 @@
  /* jshint expr: true */
 
  let username;
+ document.getElementById('viewreport').style.display = 'none';
+ document.getElementById('createtab').style.display = 'none';
 
 
  //check status function
@@ -26,21 +28,48 @@ function callcreate() {
     });
 }
 
+function gotoView() {
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+            user.getIdTokenResult().then(idTokenResult => {
+                console.log(idTokenResult.claims);
+                if (idTokenResult.claims.admin === true) {
+                    //window.location.href = "view.html";
+                    console.log("admin");
+                } else if (idTokenResult.claims.subadmin === true) {
+                   // window.location.href = "view.html";
+                    console.log("subadmin");
+                }else if (idTokenResult.claims.user === true) {
+                    //window.location.href = "404.html";
+                    console.log("user");
+                }else {
+                    console.log("unknow");
+                    window.location.href = "404.html";
+                }
+            });
+        }
+    });
+}
+
 function claimcheck(user) {
     user.getIdTokenResult().then(idTokenResult => {
         console.log(idTokenResult.claims);
         if (idTokenResult.claims.admin === true) {
+            document.getElementById('viewreport').style.display = 'block';
+            document.getElementById('createtab').style.display = 'block';
             anotherone()
         } else if (idTokenResult.claims.subadmin === true) {
+            document.getElementById('viewreport').style.display = 'block';
+            document.getElementById('createtab').style.display = 'block';
             anotherone()
         }else if (idTokenResult.claims.user === true) {
             anotherone()
         }else {
             if(email_verified === false){
-
+                window.location.href = "reg.html";
             }
             console.log("unknow");
-            window.location.href = "404.html";
+            // window.location.href = "404.html";
             signout();
         }
     });
@@ -63,11 +92,7 @@ function checkUserStatus() {
 
 function anotherone() {
     if(window.location.href === "https://etel-car-check-list.web.app/index.html" ||
-        window.location.href === "https://etel-car-check-list.web.app/index.html#" ||
-        window.location.href === "https://etel-car-check-list.web.app" ||
-        window.location.href === "https://etel-car-check-list.firebaseapp.app/index.html#" ||
-        window.location.href === "https://etel-car-check-list.firebaseapp.app/index.html" ||
-        window.location.href === "https://etel-car-check-list.firebaseapp.app"){
+        window.location.href === "https://etel-car-check-list.firebaseapp.app/index.html"){
 
         loading();
 
@@ -75,8 +100,6 @@ function anotherone() {
         document.getElementById('operator').value = username;
         console.log("change operator");
     }else if(window.location.href === "https://etel-car-check-list.web.app/view.html" ||
-        window.location.href === "https://etel-car-check-list.web.app/view.html#" ||
-        window.location.href === "https://etel-car-check-list.firebaseapp.app/view.html#" ||
         window.location.href === "https://etel-car-check-list.firebaseapp.app/view.html"){
         loading();
     }
@@ -87,9 +110,8 @@ function anotherone() {
 
 function anothertwo() {
     if(
-        window.location.href !== "https://etel-car-check-list.web.app/login.html" ||
-        window.location.href !== "https://etel-car-check-list.firebaseapp.app/login.html"
-    ){
+        window.location.href !== "https://etel-car-check-list.web.app/login.html" &&
+        window.location.href !== "https://etel-car-check-list.firebaseapp.app/login.html"){
         //console.log("not equal");
         console.log(window.location.href);
         window.location.href = "login.html";
@@ -99,20 +121,23 @@ function anothertwo() {
 }
 
 function loading() {
-    const loader = document.querySelector(".loader");
+    let loader = document.querySelector(".loader");
     setTimeout(function(){
         loader.style.opacity = "0";
         setTimeout(function(){
             loader.style.display = "none";
-            document.getElementById("myhome").style.display="block";
-            document.getElementById("mainofmain").style.display="block";
+            if(window.location.href === "https://etel-car-check-list.web.app/index.html" ||
+                window.location.href === "https://etel-car-check-list.firebaseapp.app/index.html"){
+
+                document.getElementById("myhome").style.display="block";
+
+            }else if(window.location.href === "https://etel-car-check-list.web.app/view.html" ||
+                window.location.href === "https://etel-car-check-list.firebaseapp.app/view.html"){
+
+                document.getElementById("mainofmain").style.display="block";
+            }else{}
         },500);
     },1500);
 }
 
 checkUserStatus();
-
-
-
-
-

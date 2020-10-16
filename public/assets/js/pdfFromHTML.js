@@ -54,7 +54,7 @@
     function appendBody($body, $element, opt) {
         // Clone for safety and convenience
         // Calls clone(withDataAndEvents = true) to copy form values.
-        const $content = $element.clone(opt.formValues);
+        let $content = $element.clone(opt.formValues);
 
         if (opt.formValues) {
             // Copy original select and textarea values to their cloned counterpart
@@ -79,7 +79,7 @@
 
     // Copies values from origin to clone for passed in elementSelector
     function copyValues(origin, clone, elementSelector) {
-        const $originalElements = origin.find(elementSelector);
+        let $originalElements = origin.find(elementSelector);
 
         clone.find(elementSelector).each(function(index, item) {
             $(item).val($originalElements.eq(index).val());
@@ -89,15 +89,15 @@
     let opt;
     $.fn.printThis = function(options) {
         opt = $.extend({}, $.fn.printThis.defaults, options);
-        const $element = this instanceof jQuery ? this : $(this);
+        let $element = this instanceof jQuery ? this : $(this);
 
-        const strFrameName = "printThis-" + (new Date()).getTime();
+        let strFrameName = "printThis-" + (new Date()).getTime();
 
         if (window.location.hostname !== document.domain && navigator.userAgent.match(/msie/i)) {
             // Ugly IE hacks due to IE not inheriting document.domain from parent
             // checks if document.domain is set by comparing the host name against document.domain
-            const iframeSrc = "javascript:document.write(\"<head><script>document.domain=\\\"" + document.domain + "\\\";</s" + "cript></head><body></body>\")";
-            const printI = document.createElement('iframe');
+            let iframeSrc = "javascript:document.write(\"<head><script>document.domain=\\\"" + document.domain + "\\\";</s" + "cript></head><body></body>\")";
+            let printI = document.createElement('iframe');
             printI.name = "printIframe";
             printI.id = strFrameName;
             printI.className = "MSIE";
@@ -106,11 +106,11 @@
 
         } else {
             // other browsers inherit document.domain, and IE works if document.domain is not explicitly set
-            const $frame = $("<iframe id='" + strFrameName + "' name='printIframe' />");
+            let $frame = $("<iframe id='" + strFrameName + "' name='printIframe' />");
             $frame.appendTo("body");
         }
 
-        const $iframe = $("#" + strFrameName);
+        let $iframe = $("#" + strFrameName);
 
         // show frame if in debug mode
         if (!opt.debug) $iframe.css({
@@ -166,9 +166,9 @@
 
             // import page stylesheets
             if (opt.importCSS) $("link[rel=stylesheet]").each(function() {
-                const href = $(this).attr("href");
+                let href = $(this).attr("href");
                 if (href) {
-                    const media = $(this).attr("media") || "all";
+                    let media = $(this).attr("media") || "all";
                     $head.append("<link type='text/css' rel='stylesheet' href='" + href + "' media='" + media + "'>");
                 }
             });
@@ -192,7 +192,7 @@
                 }
             }
 
-            const pageHtml = $('html')[0];
+            let pageHtml = $('html')[0];
 
             // CSS VAR in html tag when dynamic apply e.g.  document.documentElement.style.setProperty("--foo", bar);
             $doc.find('html').prop('style', pageHtml.style.cssText);
@@ -226,7 +226,7 @@
             if (opt.canvas) {
                 // Re-draw new canvases by referencing the originals
                 $body.find('canvas').each(function(){
-                    const cid = $(this).data('printthis'),
+                    let cid = $(this).data('printthis'),
                         $src = $('[data-printthis="' + cid + '"]');
 
                     this.getContext('2d').drawImage($src[0], 0, 0);
@@ -245,7 +245,7 @@
             // remove inline styles
             if (opt.removeInline) {
                 // Ensure there is a selector, even if it's been mistakenly removed
-                const selector = opt.removeInlineSelector || '*';
+                let selector = opt.removeInlineSelector || '*';
                 // $.removeAttr available jQuery 1.7+
                 if ($.isFunction($.removeAttr)) {
                     $body.find(selector).removeAttr("style");

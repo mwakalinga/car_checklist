@@ -30,11 +30,11 @@ let check28 = "";
 let carname = document.getElementById("car_name").value;
 let operator = document.getElementById("operator").value;
 let meter = document.getElementById("meter_reading").value;
-const date = document.getElementById("date_now").value;
+//let datein = document.getElementById("date_now").value;
 let comments = document.getElementById("datacomment").value;
 
 function boxcheck(something){
-    const num = something.replace(/[a-z]/g, '');
+    let num = something.replace(/[a-z]/g, '');
     switch(num){
         case '1':
             if(something === 'data1good'){
