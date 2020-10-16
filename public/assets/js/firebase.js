@@ -57,23 +57,22 @@ function gotoView() {
 function claimcheck(user) {
     user.getIdTokenResult().then(idTokenResult => {
         console.log(idTokenResult.claims);
+        //console.log(user.emailVerified);
 
-        if (idTokenResult.claims.admin === true && idTokenResult.claims.email_verified === true) {
+        if (idTokenResult.claims.admin === true && user.emailVerified) {
             document.getElementById('viewreport').style.display = 'block';
             document.getElementById('createtab').style.display = 'block';
             anotherone()
-        } else if (idTokenResult.claims.SubAdmin === true && idTokenResult.claims.email_verified === true) {
+        } else if (idTokenResult.claims.SubAdmin === true && user.emailVerified) {
             document.getElementById('viewreport').style.display = 'block';
             document.getElementById('createtab').style.display = 'block';
             anotherone()
-        }else if (idTokenResult.claims.Worker === true && idTokenResult.claims.email_verified === true) {
+        }else if (idTokenResult.claims.Worker === true && user.emailVerified) {
             anotherone()
         }else {
             if(window.location.href !== "https://etel-car-check-list.web.app/reg.html" &&
                 window.location.href !== "https://etel-car-check-list.firebaseapp.app/reg.html"&&
-                window.location.href !== "http://localhost:5005/reg.html"&&
-                window.location.href !== "http://localhost:5000/reg.html"&&
-                !idTokenResult.claims.email_verified) {
+                !user.emailVerified) {
                 window.location.href = "reg.html";
             }
 
@@ -120,8 +119,7 @@ function anotherone() {
 function anothertwo() {
     if(
         window.location.href !== "https://etel-car-check-list.web.app/login.html" &&
-        window.location.href !== "https://etel-car-check-list.firebaseapp.app/login.html"&&
-        window.location.href !== "http://localhost:5000/login.html"){
+        window.location.href !== "https://etel-car-check-list.firebaseapp.app/login.html"){
         //console.log("not equal");
         console.log(window.location.href);
         window.location.href = "login.html";
