@@ -1,7 +1,6 @@
  /*jshint esversion: 6 */
  /* jshint expr: true */
- 
-const db = firebase.auth();
+
 const functions = firebase.functions();
 const createNewUser = functions.httpsCallable('createUser');
 

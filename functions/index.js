@@ -57,7 +57,7 @@ exports.createUser = functions.https.onCall(async(data, context) => {
   const callerUid = context.auth.uid; //uid of the user calling the Cloud Function
   const callerUserRecord = await admin.auth().getUser(callerUid);
 
-  if (!callerUserRecord.customClaims.admin || !callerUserRecord.customClaims.SubAdmin ) {
+  if (!callerUserRecord.customClaims.admin && !callerUserRecord.customClaims.SubAdmin ) {
    throw new NotAnAdminError('Only Admin users can create new users.');
   }
 
@@ -96,12 +96,11 @@ exports.createUser = functions.https.onCall(async(data, context) => {
 
   await admin.auth().setCustomUserClaims(userId, claims);
 
-  const userData = await admin.firestore().collection("userlist").doc(userId).set(data);
+  const userData = await admin.firestore().collection("userlist").add(data);
 
   await userCreationRequestRef.update({ status: 'Treated', claims: claim });
 
   await userData.update({ password: '******************'});
-
 
   return {
       result: 'The new user account has been successfully created.'

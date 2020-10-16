@@ -1,3 +1,4 @@
+const db = firebase.auth();
 document.getElementById('verify').style.display = 'block';
 document.getElementById('message').style.display = 'none';
 
