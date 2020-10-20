@@ -81,11 +81,11 @@
                         <p id="errorclaim" style="color:rgb(255, 1, 1); text-align: center; font-size: small;"></p>
                         </div>
                         <div class="form-group">
-                            <input class="form-control" type="password" id="password1" onchange="empty()" placeholder="new password" required minlength="6">
+                            <input class="form-control" type="password" id="password1" onchange="empty()" data-toggle="password" placeholder="new password" required minlength="6">
                             <small class="form-text text-muted " style="font-size:10px;">please enter new password atlease 6 characher</small>
                         </div>
                         <div class="form-group">
-                            <input class="form-control" type="password" onchange="validate()" id="password2" placeholder="comfim new password" required minlength="6" required>
+                            <input class="form-control" type="password" onchange="validate()" id="password2" data-toggle="password" placeholder="comfim new password" required minlength="6" required>
                             <small class="form-text text-muted " style="font-size:10px;">please comfirm new password NOTE:password should be same</small>
                         </div>
                         <p id="sucesstxt" style="color:rgb(1, 255, 86); text-align: center; font-size: small;"></p>
@@ -107,6 +107,7 @@
     <!-- End: cardsss2 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-show-password@1.2.1/dist/bootstrap-show-password.min.js"></script>
     <script defer src="assets/js/create.js"></script>
     <script defer src="assets/js/signout.js"></script>
     <script defer src="assets/js/firebase.js"></script>

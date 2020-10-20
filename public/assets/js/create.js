@@ -27,13 +27,16 @@ function sendData() {
     event.preventDefault();
    event.stopPropagation();
 
+    document.getElementById("errortxt").innerText = "";
+    document.getElementById("sucesstxt").innerText = "";
+
     let mail = document.getElementById("email").value;
     let pass1 = document.getElementById("password1").value;
     let fname = document.getElementById("fullname").value;
     let pnumber = document.getElementById("phonenumber").value;
     let level = document.getElementById('claim_name').value;
     if (number === 1) {
-        console.log("every thing is good");
+        //console.log("every thing is good");
         console.log(mail+pass1);
 
         //create acc
@@ -47,6 +50,9 @@ function sendData() {
 
         createNewUser(user).then(function(resp) {
             console.log(resp);
+            document.getElementById("sucesstxt").innerText = resp;
+            alert(resp);
+            window.location.href = "registration.html";
         }).catch(function(error) {
             console.log(error);
             document.getElementById("errortxt").innerText = error;

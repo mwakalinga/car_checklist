@@ -100,7 +100,7 @@ a:hover{
     outline:0;
     color:inherit;
     text-indent:8px;
-    height:42px
+    /*height:42px*/
 }
 .login-clean form .btn-primary{
     background:#f4476b;
@@ -118,16 +118,4 @@ a:hover{
 }
 .login-clean form .btn-primary:active{
     transform:translateY(1px)
-}
-.login-clean form .forgot{
-    display:block;
-    text-align:center;
-    font-size:12px;
-    color:#6f7a85;
-    opacity:.9;
-    text-decoration:none
-}
-.login-clean form .forgot:active,
-.login-clean form .forgot:hover{
-    opacity:1;text-decoration:none
 }

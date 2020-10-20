@@ -119,7 +119,8 @@ function anotherone() {
 function anothertwo() {
     if(
         window.location.href !== "https://etel-car-check-list.web.app/login.html" &&
-        window.location.href !== "https://etel-car-check-list.firebaseapp.app/login.html"){
+        window.location.href !== "https://etel-car-check-list.firebaseapp.app/login.html" &&
+        window.location.href !=="http://localhost:5000/login.html"){
         //console.log("not equal");
         console.log(window.location.href);
         window.location.href = "login.html";

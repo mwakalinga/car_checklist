@@ -52,30 +52,31 @@
                 <img style="  width: 100px;" src="assets/img/etellogo.png" />
             </div>
             <div class="form-group">
-                <input class="form-control" type="email" id="userEmail" name="email" placeholder="Email" required>
+                <input class="form-control" type="email" id="userEmail" placeholder="Email" required>
             </div>
             <div class="form-group">
-                <input class="form-control" type="password" id="userPass" name="password" placeholder="Password" required>
-            </div>
+                <div class="input-group">
+                    <input class="form-control" type="password" id="userPass" data-toggle="password" placeholder="Password" required>
+                </div>
             <p id="errortxt" style="color:rgb(255, 1, 1); text-align: center; font-size: small;"></p>
             <div class="form-group">
                 <button class="btn btn-primary btn-block" id="submit" style="background-color: rgb(0,98,204);">Log In</button>
             </div>
-            <a class="forgot" onclick="callcreate()">create new account</a>
+<!--            <a class="forgot" onclick="callcreate()">create new account</a>-->
         </form>
     </div>
     <!-- End: Login Form Clean -->
 
     <script>
-        var userEmail = document.getElementById("userEmail");
-        var pass = document.getElementById("userPass");
-        var logIn = document.getElementById("submit");
+        const userEmail = document.getElementById("userEmail");
+        const pass = document.getElementById("userPass");
+        const logIn = document.getElementById("submit");
 
         logIn.addEventListener('click', e => {
             event.preventDefault();
             document.getElementById("errortxt").innerText = "";
-            var email = userEmail.value;
-            var password = pass.value;
+            const email = userEmail.value;
+            const password = pass.value;
             firebase.auth().signInWithEmailAndPassword(email, password)
                 .then(function(response) {
                     console.log(response);
@@ -87,10 +88,11 @@
                 });
         });
     </script>
-    <script defer src="assets/js/signout.js"></script>
-    <script defer src="assets/js/firebase.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-show-password@1.2.1/dist/bootstrap-show-password.min.js"></script>
+    <script defer src="assets/js/signout.js"></script>
+    <script defer src="assets/js/firebase.js"></script>
 </body>
 
 </html>
