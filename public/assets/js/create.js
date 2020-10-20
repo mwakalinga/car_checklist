@@ -33,9 +33,6 @@ function sendData() {
     event.preventDefault();
    event.stopPropagation();
 
-    document.getElementById("errortxt").innerText = "";
-    document.getElementById("sucesstxt").innerText = "creating account, please wait";
-
     let mail = document.getElementById("email").value;
     let pass1 = document.getElementById("password1").value;
     let fname = document.getElementById("fullname").value;
@@ -50,6 +47,8 @@ function sendData() {
         number = 0;
         validate()
         if (number === 1) {
+            document.getElementById("errortxt").innerText = "";
+            document.getElementById("sucesstxt").innerText = "creating account, please wait";
             //console.log("every thing is good");
             console.log(mail+pass1);
 
