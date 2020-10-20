@@ -7,13 +7,13 @@ const createNewUser = functions.httpsCallable('createUser');
 function empty() {
     document.getElementById("errortxt").innerText = "";
 }
- let number = 0;
+let number = 0;
 
 function validate() {
     let pass1 = document.getElementById("password1").value;
     let pass2 = document.getElementById("password2").value;
-    console.log(pass1);
-    if (pass1.value !== pass2.value) {
+    //console.log(pass1);
+    if (pass1 !== pass2) {
         document.getElementById("errortxt").innerText = "please check the password, are not equal!";
     } else {
         document.getElementById("errortxt").innerText = "";
@@ -35,33 +35,39 @@ function sendData() {
     let fname = document.getElementById("fullname").value;
     let pnumber = document.getElementById("phonenumber").value;
     let level = document.getElementById('claim_name').value;
-    if (number === 1) {
-        //console.log("every thing is good");
-        console.log(mail+pass1);
 
-        //create acc
-        let user = {
-            email: mail,
-            password: pass1,
-            displayName: fname,
-            phoneNumber: pnumber,
-            claims: level
-        };
+    //chech level before continue
+    if(level === "select"){
+        document.getElementById("errortxt").innerText = "plaese choose user level";
+    }else{
+        if (number === 1) {
+            //console.log("every thing is good");
+            console.log(mail+pass1);
 
-        createNewUser(user).then(function(resp) {
-            console.log(resp);
-            document.getElementById("sucesstxt").innerText = resp;
-            alert(resp);
-            window.location.href = "registration.html";
-        }).catch(function(error) {
-            console.log(error);
-            document.getElementById("errortxt").innerText = error;
-        });
+            //create acc
+            let user = {
+                email: mail,
+                password: pass1,
+                displayName: fname,
+                phoneNumber: pnumber,
+                claims: level
+            };
+
+            createNewUser(user).then(function(resp) {
+                //console.log(resp);
+                document.getElementById("sucesstxt").innerText = resp;
+                alert(resp);
+                window.location.href = "registration.html";
+            }).catch(function(error) {
+                //console.log(error);
+                document.getElementById("errortxt").innerText = error;
+            });
+        }
     }
 }
 
 function pickclaim(claim){
-     console.log(claim);
+     //console.log(claim);
      document.getElementById('claim_name').value =claim;
 }
 
