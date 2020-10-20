@@ -28,7 +28,7 @@ function sendData() {
    event.stopPropagation();
 
     document.getElementById("errortxt").innerText = "";
-    document.getElementById("sucesstxt").innerText = "";
+    document.getElementById("sucesstxt").innerText = "creating account, please wait";
 
     let mail = document.getElementById("email").value;
     let pass1 = document.getElementById("password1").value;
