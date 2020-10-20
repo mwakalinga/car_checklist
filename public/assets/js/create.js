@@ -14,10 +14,11 @@ function validate() {
     let pass2 = document.getElementById("password2").value;
     //console.log(pass1);
     if (pass1 !== pass2) {
+        document.getElementById("sucesstxt").innerText = "";
         document.getElementById("errortxt").innerText = "please check the password, are not equal!";
     } else {
         document.getElementById("errortxt").innerText = "";
-        document.getElementById("sucesstxt").innerText = "good to go!";
+        document.getElementById("sucesstxt").innerText = "password match. you may continue";
         //console.log("number seted to 1");
         number = 1;
     }
@@ -38,6 +39,7 @@ function sendData() {
 
     //chech level before continue
     if(level === "select"){
+        document.getElementById("sucesstxt").innerText = "";
         document.getElementById("errortxt").innerText = "plaese choose user level";
     }else{
         if (number === 1) {
@@ -55,11 +57,13 @@ function sendData() {
 
             createNewUser(user).then(function(resp) {
                 //console.log(resp);
+                document.getElementById("errortxt").innerText = "";
                 document.getElementById("sucesstxt").innerText = resp;
                 alert(resp);
                 window.location.href = "registration.html";
             }).catch(function(error) {
                 //console.log(error);
+                document.getElementById("sucesstxt").innerText = "";
                 document.getElementById("errortxt").innerText = error;
             });
         }
