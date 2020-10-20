@@ -16,7 +16,12 @@ function validate() {
     if (pass1 !== pass2) {
         document.getElementById("sucesstxt").innerText = "";
         document.getElementById("errortxt").innerText = "please check the password, are not equal!";
-    } else {
+    }
+    else if(pass1 === "" && pass2 ===""){
+        document.getElementById("sucesstxt").innerText = "";
+        document.getElementById("errortxt").innerText = "password should not be empty";
+    }
+    else {
         document.getElementById("errortxt").innerText = "";
         document.getElementById("sucesstxt").innerText = "password match. you may continue";
         //console.log("number seted to 1");
