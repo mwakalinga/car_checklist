@@ -42,6 +42,8 @@ function sendData() {
         document.getElementById("sucesstxt").innerText = "";
         document.getElementById("errortxt").innerText = "plaese choose user level";
     }else{
+        number = 0;
+        validate()
         if (number === 1) {
             //console.log("every thing is good");
             console.log(mail+pass1);
